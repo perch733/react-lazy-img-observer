@@ -1,0 +1,37 @@
+{
+  "name": "react-lazy-img-observer",
+  "version": "1.0.0",
+  "description": "A React component for lazy loading images with Intersection Observer",
+  "main": "dist/cjs/ImageLazy.min.js",
+  "module": "dist/esm/ImageLazy.min.js",
+  "types": "dist/types/ImageLazy.d.ts",
+  "scripts": {
+    "build": "tsc --project tsconfig.cjs.json && tsc --project tsconfig.esm.json && terser dist/cjs/ImageLazy.js -o dist/cjs/ImageLazy.min.js --compress --mangle && terser dist/esm/ImageLazy.js -o dist/esm/ImageLazy.min.js --compress --mangle"
+  },
+  "keywords": [
+    "react",
+    "lazy-load",
+    "image",
+    "intersection-observer"
+  ],
+  "author": "Percy Chuzon <contacto@percychuzon.com>",
+  "license": "ISC",
+  "homepage": "https://github.com/perch33/react-lazy-img-observer",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/perch33/react-lazy-img-observer.git"
+  },
+  "bugs": {
+    "url": "https://github.com/perch33/react-lazy-img-observer/issues"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "terser": "^5.31.3"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "typescript": "^5.5.4"
+  }
+}
