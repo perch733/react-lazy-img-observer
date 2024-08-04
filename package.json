@@ -1,6 +1,6 @@
 {
   "name": "react-lazy-img-observer",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A React component for lazy loading images with Intersection Observer",
   "main": "dist/cjs/ImageLazy.min.js",
   "module": "dist/esm/ImageLazy.min.js",
