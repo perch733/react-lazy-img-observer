@@ -1,12 +1,26 @@
 {
   "name": "react-lazy-img-observer",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "A React component for lazy loading images with Intersection Observer",
   "main": "dist/cjs/ImageLazy.min.js",
   "module": "dist/esm/ImageLazy.min.js",
   "types": "dist/types/ImageLazy.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/esm/ImageLazy.min.js",
+      "require": "./dist/cjs/ImageLazy.min.js",
+      "types": "./dist/types/ImageLazy.d.ts"
+    }
+  },
+  "files": [
+    "dist/cjs",
+    "dist/esm",
+    "dist/types"
+  ],
+  "sideEffects": false,
   "scripts": {
-    "build": "tsc --project tsconfig.cjs.json && tsc --project tsconfig.esm.json && terser dist/cjs/ImageLazy.js -o dist/cjs/ImageLazy.min.js --compress --mangle && terser dist/esm/ImageLazy.js -o dist/esm/ImageLazy.min.js --compress --mangle"
+    "clean": "rimraf dist",
+    "build": "npm run clean && tsc -p tsconfig.cjs.json && tsc -p tsconfig.esm.json && terser dist/cjs/ImageLazy.js -o dist/cjs/ImageLazy.min.js --compress --mangle && terser dist/esm/ImageLazy.js -o dist/esm/ImageLazy.min.js --compress --mangle"
   },
   "keywords": [
     "react",
@@ -16,22 +30,25 @@
   ],
   "author": "Percy Chuzon <contacto@percychuzon.com>",
   "license": "ISC",
-  "homepage": "https://github.com/perch33/react-lazy-img-observer",
+  "homepage": "https://imagelazy.percychuzon.com/",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/perch33/react-lazy-img-observer.git"
+    "url": "https://github.com/perch33/react-lazy-img-observer.git"
   },
   "bugs": {
     "url": "https://github.com/perch33/react-lazy-img-observer/issues"
   },
   "dependencies": {
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "terser": "^5.31.3"
+    "terser": "^5.39.0"
+  },
+  "peerDependencies": {
+    "react": ">=17.0.0",
+    "react-dom": ">=17.0.0"
   },
   "devDependencies": {
-    "@types/react": "^18.3.3",
-    "@types/react-dom": "^18.3.0",
-    "typescript": "^5.5.4"
+    "@types/react": "^18.3.21",
+    "@types/react-dom": "^18.3.7",
+    "rimraf": "^6.0.1",
+    "typescript": "^5.8.3"
   }
 }

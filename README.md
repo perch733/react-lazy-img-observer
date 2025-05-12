@@ -1,125 +1,112 @@
-# ImageLazy Component
+# 📷 ImageLazy
 
-The `ImageLazy` component is a React component designed for lazy loading images. It leverages the Intersection Observer API to load images only when they are within the viewport, optimizing the loading performance of your web application.
+**ImageLazy** is a lightweight React component for lazy loading images using the Intersection Observer API. It delays the loading of off-screen images until they appear in the viewport, helping optimize performance and reduce initial load times.
 
-## Installation
+![npm](https://img.shields.io/npm/v/react-lazy-img-observer.svg)  
+![license](https://img.shields.io/npm/l/react-lazy-img-observer.svg)
+
+---
+
+## 📦 Installation
 
 ```bash
 npm install react-lazy-img-observer
 ```
 
-# Usage
+---
 
-```javascript
+## 🚀 Usage
+
+### Basic example (JSX or TSX)
+
+```tsx
 import ImageLazy from "react-lazy-img-observer";
 
-const Example = () => {
-  return (
-    <ImageLazy
-      src="path/to/your/image.jpg"
-      alt="Description of the image"
-      width={600}
-      height={400}
-      className="your-class-name"
-      id="unique-image-id"
-      title="Image Title"
-      extraData={{ "data-custom-attribute": "value" }}
-    />
-  );
-};
+const Example = () => (
+  <ImageLazy
+    src="https://example.com/image.jpg"
+    alt="Description of the image"
+    width={600}
+    height={400}
+    className="custom-class"
+    id="image-1"
+    title="Image title"
+    extraData={{ "data-custom": "value" }}
+  />
+);
 ```
 
-## Props
+---
 
-The ImageLazy component accepts the following props:
+## 🧩 Props
 
-| Prop        | Type                                        | Default | Description                                         |
-| ----------- | ------------------------------------------- | ------- | --------------------------------------------------- |
-| `src`       | `string`                                    | -       | The source URL of the image.                        |
-| `alt`       | `string`                                    | -       | The alt text for the image.                         |
-| `width`     | `number`                                    | -       | The width of the image.                             |
-| `height`    | `number`                                    | -       | The height of the image.                            |
-| `id`        | `number \| string`                          | -       | The ID of the image element.                        |
-| `className` | `string`                                    | -       | Additional class names for the image element.       |
-| `title`     | `string`                                    | -       | The title attribute for the image element.          |
-| `extraData` | `React.ImgHTMLAttributes<HTMLImageElement>` | -       | Additional attributes to pass to the image element. |
+| Prop        | Type                                        | Required | Description                                           |
+|-------------|---------------------------------------------|----------|-------------------------------------------------------|
+| `src`       | `string`                                    | ✅        | The source URL of the image.                          |
+| `alt`       | `string`                                    | ✅        | The alt text for accessibility.                       |
+| `width`     | `number`                                    | ❌        | The width of the image.                               |
+| `height`    | `number`                                    | ❌        | The height of the image.                              |
+| `id`        | `string \| number`                          | ❌        | Optional ID for the image element.                    |
+| `className` | `string`                                    | ❌        | CSS class for custom styling.                         |
+| `title`     | `string`                                    | ❌        | Tooltip text shown on hover.                          |
+| `extraData` | `React.ImgHTMLAttributes<HTMLImageElement>` | ❌        | Any extra HTML attributes (e.g., `data-*`).           |
 
+---
 
-## Example 
+## 📚 How It Works
 
-```javascript
-import React from 'react';
-import ImageLazy from 'your-library-name';
+The component uses the [`IntersectionObserver`](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API) API to detect when the image enters the viewport. Once at least **50%** of the image is visible, the real `src` is assigned to the image, triggering the browser to load it.
 
-const App = () => {
-  return (
-    <div>
-      <h1>Lazy Loaded Images</h1>
-      <ImageLazy
-        src="https://example.com/image1.jpg"
-        alt="Image 1"
-        width={600}
-        height={400}
-        className="image-class"
-        id="image1"
-        title="First Image"
-      />
-      <ImageLazy
-        src="https://example.com/image2.jpg"
-        alt="Image 2"
-        width={600}
-        height={400}
-        className="image-class"
-        id="image2"
-        title="Second Image"
-      />
-    </div>
-  );
-};
+---
 
-export default App;
+## ⚙️ Intersection Observer Configuration
 
-```
+- `root`: `null` (default viewport)
+- `rootMargin`: `"0px"`
+- `threshold`: `0.5` (50% visibility required)
 
-## How it works
+---
 
-The `ImageLazy` component uses the IntersectionObserver API to detect when the image enters the viewport. When the image is about to enter the viewport (50% visibility by default), the component sets the `src` attribute of the image element to load the actual image.
+## 🎨 Styling
 
-## Intersection Observer Options
-
-- **`root`**: The element that is used as the viewport for checking visibility of the target. Defaults to `null` (the browser viewport).
-- **`rootMargin`**: Margin around the root. Can be used to grow or shrink the area used for intersection. Defaults to `"0px"`.
-- **`threshold`**: A single number or an array of numbers which indicate at what percentage of the target's visibility the observer's callback should be executed. Defaults to `0.5`.
-
-
-## Styling
-
-The `ImageLazy` component applies a blur filter to the image until it is fully loaded. You can customize the transition effect and blur amount through the `style` prop or CSS class.
+The image starts blurred and transitions smoothly once it’s loaded. You can override or enhance this with your own styles:
 
 ```css
-.image-class {
-  filter: blur(10px);
-  transition: filter 0.9s;
+.custom-class {
+  filter: blur(20px);
+  transition: filter 0.9s ease;
 }
 
-.image-class[data-src] {
+.custom-class.loaded {
   filter: none;
 }
-
 ```
 
-## License
+You may also override the `style` prop directly if preferred.
 
-MIT
+---
 
-## Contributing
+## 📄 License
 
-Contributions are welcome! Please open an issue or submit a pull request for any bugs or feature requests.
+[ISC License](./LICENSE)
 
-## Author
+---
 
-Percy Chuzon
+## 🤝 Contributing
 
-## Acknowledgments
+Contributions are welcome!  
+Feel free to [open an issue](https://github.com/perch33/react-lazy-img-observer/issues) or submit a pull request.
 
-Thanks to the React and Intersection Observer API documentation for guidance.
+---
+
+## 👤 Author
+
+**Percy Chuzon**  
+📧 contacto@percychuzon.com  
+🌐 [https://percychuzon.com](https://percychuzon.com)
+
+---
+
+## 🙏 Acknowledgments
+
+Thanks to the React community and the MDN docs for inspiration and guidance.
