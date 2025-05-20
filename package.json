@@ -1,6 +1,6 @@
 {
   "name": "react-lazy-img-observer",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "A React component for lazy loading images with Intersection Observer",
   "main": "dist/cjs/ImageLazy.min.js",
   "module": "dist/esm/ImageLazy.min.js",
@@ -25,11 +25,24 @@
   "keywords": [
     "react",
     "lazy-load",
+    "lazyload",
     "image",
-    "intersection-observer"
+    "lazy-image",
+    "intersection-observer",
+    "performance",
+    "react-component",
+    "react-images",
+    "react-lazy",
+    "load-on-scroll",
+    "responsive-images",
+    "web-optimization",
+    "accessibility",
+    "a11y",
+    "react-hooks",
+    "viewport"
   ],
   "author": "Percy Chuzon <contacto@percychuzon.com>",
-  "license": "ISC",
+  "license": "MIT",
   "homepage": "https://imagelazy.percychuzon.com/",
   "repository": {
     "type": "git",
@@ -39,7 +52,7 @@
     "url": "https://github.com/perch33/react-lazy-img-observer/issues"
   },
   "dependencies": {
-    "terser": "^5.39.0"
+    "terser": "^5.39.2"
   },
   "peerDependencies": {
     "react": ">=17.0.0",
