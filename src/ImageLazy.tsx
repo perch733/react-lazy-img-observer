@@ -10,6 +10,8 @@ type ImagesLazy = {
   className?: string;
   title?: string;
   extraData?: React.ImgHTMLAttributes<HTMLImageElement>;
+  viewTransitionName?: string;
+  style?: React.CSSProperties;
 };
 
 // Componente principal
@@ -22,16 +24,15 @@ const ImageLazy = ({
   id,
   extraData,
   title,
+  viewTransitionName,
+  style,
 }: ImagesLazy) => {
   const imageRef = useRef<HTMLImageElement>(null);
   const [isIntersecting, setIsIntersecting] = useState(false);
 
   useEffect(() => {
     // Verifica si el navegador soporta IntersectionObserver
-    if (
-      typeof IntersectionObserver === "undefined" ||
-      !imageRef.current
-    ) {
+    if (typeof IntersectionObserver === "undefined" || !imageRef.current) {
       return;
     }
 
@@ -75,6 +76,8 @@ const ImageLazy = ({
       style={{
         filter: isIntersecting ? "none" : "blur(20px)",
         transition: "filter 0.9s",
+        viewTransitionName,
+        ...style,
       }}
       {...extraData}
     />

@@ -36,20 +36,38 @@ const Example = () => (
 );
 ```
 
+🆕 View Transitions (v1.1.0+)
+
+You can now use `viewTransitionName` to enable smooth page or element transitions using the [`View Transitions API`](https://developer.mozilla.org/en-US/docs/Web/API/View_Transition_API):
+
+```tsx
+<ImageLazy
+  src="https://example.com/image.jpg"
+  alt="Description"
+  width={600}
+  height={400}
+  viewTransitionName="featured-image"
+/>
+```
+
+>💡 To use this, make sure your project includes proper CSS setup for ::view-transition-* pseudo-elements and transition animations.
+
 ---
 
 ## 🧩 Props
 
-| Prop        | Type                                        | Required | Description                                           |
-|-------------|---------------------------------------------|----------|-------------------------------------------------------|
-| `src`       | `string`                                    | ✅        | The source URL of the image.                          |
-| `alt`       | `string`                                    | ✅        | The alt text for accessibility.                       |
-| `width`     | `number`                                    | ❌        | The width of the image.                               |
-| `height`    | `number`                                    | ❌        | The height of the image.                              |
-| `id`        | `string \| number`                          | ❌        | Optional ID for the image element.                    |
-| `className` | `string`                                    | ❌        | CSS class for custom styling.                         |
-| `title`     | `string`                                    | ❌        | Tooltip text shown on hover.                          |
-| `extraData` | `React.ImgHTMLAttributes<HTMLImageElement>` | ❌        | Any extra HTML attributes (e.g., `data-*`).           |
+| Prop        | Type                                        | Required | Description                                 |
+| ----------- | ------------------------------------------- | -------- | ------------------------------------------- |
+| `src`       | `string`                                    | ✅       | The source URL of the image.                |
+| `alt`       | `string`                                    | ✅       | The alt text for accessibility.             |
+| `width`     | `number`                                    | ❌       | The width of the image.                     |
+| `height`    | `number`                                    | ❌       | The height of the image.                    |
+| `id`        | `string \| number`                          | ❌       | Optional ID for the image element.          |
+| `className` | `string`                                    | ❌       | CSS class for custom styling.               |
+| `title`     | `string`                                    | ❌       | Tooltip text shown on hover.                |
+| `extraData` | `React.ImgHTMLAttributes<HTMLImageElement>` | ❌       | Any extra HTML attributes (e.g., `data-*`). |
+| `style` | `React.CSSProperties` | ❌       | Inline style object for additional customization. |
+| `viewTransitionName` | `string` | ❌       | 	Enables smooth visual transitions between views using View Transitions API. |
 
 ---
 
