@@ -1,13 +1,12 @@
-# 📷 ImageLazy
+# 📷 ImageLazy (v1.4.0)
 
-**ImageLazy** is a lightweight React component for lazy loading images using the Intersection Observer API. It delays the loading of off-screen images until they appear in the viewport, helping optimize performance and reduce initial load times.
+**ImageLazy** is a lightweight and customizable React component for lazy loading images using the Intersection Observer API. It includes fallback handling, visual effects, and support for custom loaders and transitions — perfect for performance-oriented applications.
 
-![npm](https://img.shields.io/npm/v/react-lazy-img-observer.svg)  
-![license](https://img.shields.io/npm/l/react-lazy-img-observer.svg)
+**ImageLazy** es un componente liviano y personalizable de React para cargar imágenes perezosamente (lazy load) usando la API de Intersection Observer. Incluye manejo de errores, efectos visuales, y soporte para spinners personalizados y transiciones — ideal para aplicaciones optimizadas.
 
 ---
 
-## 📦 Installation
+## 📦 Installation / Instalación
 
 ```bash
 npm install react-lazy-img-observer
@@ -15,116 +14,199 @@ npm install react-lazy-img-observer
 
 ---
 
-## 🚀 Usage
-
-### Basic example (JSX or TSX)
+## 🚀 Usage / Uso Básico
 
 ```tsx
 import ImageLazy from "react-lazy-img-observer";
 
-const Example = () => (
-  <ImageLazy
-    src="https://example.com/image.jpg"
-    alt="Description of the image"
-    width={600}
-    height={400}
-    className="custom-class"
-    id="image-1"
-    title="Image title"
-    extraData={{ "data-custom": "value" }}
-  />
-);
+function App() {
+  return (
+    <ImageLazy
+      src="https://example.com/photo.jpg"
+      alt="Example image"
+      width={400}
+      height={300}
+    />
+  );
+}
 ```
 
-🆕 View Transitions (v1.1.0+)
+---
 
-You can now use `viewTransitionName` to enable smooth page or element transitions using the [`View Transitions API`](https://developer.mozilla.org/en-US/docs/Web/API/View_Transition_API):
+## 🎨 Advanced Example with Spinner and Fallback / Ejemplo Avanzado con Spinner y Fallback
+
+```tsx
+import ImageLazy from "react-lazy-img-observer";
+
+const Spinner = () => <div className="spinner">Loading...</div>;
+
+function GalleryImage() {
+  return (
+    <ImageLazy
+      src="/img/cat.webp"
+      alt="Cute Cat"
+      width={300}
+      height={200}
+      fallbackSrc="/img/fallback.webp"
+      backgroundColor="#eee"
+      animationDuration="1s"
+      blurAmount="8px"
+      transitionType="fade"
+      loadingComponent={<Spinner />}
+    />
+  );
+}
+```
+
+---
+
+## 💫 Custom Transition with Your Own CSS / Transiciones Personalizadas con CSS Propio
 
 ```tsx
 <ImageLazy
-  src="https://example.com/image.jpg"
-  alt="Description"
-  width={600}
-  height={400}
-  viewTransitionName="featured-image"
+  src="/img/circle.jpg"
+  alt="Spinning Image"
+  transitionType="custom"
+  className="my-custom-transition"
 />
 ```
 
->💡 To use this, make sure your project includes proper CSS setup for ::view-transition-* pseudo-elements and transition animations.
+**CSS**
+
+```css
+.my-custom-transition {
+  opacity: 0;
+  transform: rotate(10deg) scale(0.95);
+  transition: all 0.8s ease-in-out;
+}
+
+.my-custom-transition.loaded {
+  opacity: 1;
+  transform: rotate(0deg) scale(1);
+}
+```
 
 ---
 
 ## 🧩 Props
 
-| Prop        | Type                                        | Required | Description                                 |
-| ----------- | ------------------------------------------- | -------- | ------------------------------------------- |
-| `src`       | `string`                                    | ✅       | The source URL of the image.                |
-| `alt`       | `string`                                    | ✅       | The alt text for accessibility.             |
-| `width`     | `number`                                    | ❌       | The width of the image.                     |
-| `height`    | `number`                                    | ❌       | The height of the image.                    |
-| `id`        | `string \| number`                          | ❌       | Optional ID for the image element.          |
-| `className` | `string`                                    | ❌       | CSS class for custom styling.               |
-| `title`     | `string`                                    | ❌       | Tooltip text shown on hover.                |
-| `extraData` | `React.ImgHTMLAttributes<HTMLImageElement>` | ❌       | Any extra HTML attributes (e.g., `data-*`). |
-| `style` | `React.CSSProperties` | ❌       | Inline style object for additional customization. |
-| `viewTransitionName` | `string` | ❌       | 	Enables smooth visual transitions between views using View Transitions API. |
+| Prop                 | Type                                | Default | Description / Descripción                                  |
+| -------------------- | ----------------------------------- | ------- | ---------------------------------------------------------- |
+| `src`                | `string`                            | -       | Image URL / URL de imagen ✅                                |
+| `alt`                | `string`                            | -       | Alt text / Texto alternativo ✅                             |
+| `width`              | `number`                            | -       | Width / Ancho                                              |
+| `height`             | `number`                            | -       | Height / Alto                                              |
+| `srcSet`             | `string`                            | -       | Responsive image set                                       |
+| `sizes`              | `string`                            | -       | Responsive sizes                                           |
+| `fallbackSrc`        | `string`                            | -       | Fallback if image fails / Imagen alternativa si falla      |
+| `backgroundColor`    | `string`                            | -       | Background color before load                               |
+| `blurAmount`         | `string`                            | `20px`  | Initial blur / Desenfoque inicial                          |
+| `animationDuration`  | `string`                            | `0.9s`  | Transition duration / Duración de transición               |
+| `threshold`          | `number`                            | `0.5`   | Intersection threshold / Umbral de visibilidad             |
+| `transitionType`     | `"blur"\|"fade"\|"scale"\|"custom"` | `blur`  | Type of transition / Tipo de transición                    |
+| `loadingComponent`   | `ReactNode`                         | -       | Custom loader / Componente de carga personalizado ✅        |
+| `onLoadComplete`     | `() => void`                        | -       | Callback when loaded / Al terminar de cargar               |
+| `visibleByDefault`   | `boolean`                           | `false` | Skip lazy load / Saltar carga diferida si ya está en caché |
+| `viewTransitionName` | `string`                            | -       | View Transitions API                                       |
+| `extraData`          | `ImgHTMLAttributes`                 | -       | Additional attributes                                      |
+| `style`              | `CSSProperties`                     | -       | Inline styles                                              |
+| `className`          | `string`                            | -       | Custom CSS class                                           |
+| `id`                 | `string`\|`number`                  | -       | Element ID                                                 |
 
 ---
 
-## 📚 How It Works
+## 🔧 How it works / ¿Cómo funciona?
 
-The component uses the [`IntersectionObserver`](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API) API to detect when the image enters the viewport. Once at least **50%** of the image is visible, the real `src` is assigned to the image, triggering the browser to load it.
-
----
-
-## ⚙️ Intersection Observer Configuration
-
-- `root`: `null` (default viewport)
-- `rootMargin`: `"0px"`
-- `threshold`: `0.5` (50% visibility required)
+- When `visibleByDefault` is `false` (default), the image loads only when it's in the viewport (IntersectionObserver).
+- If `visibleByDefault` is `true`, the image is loaded immediately (useful for SSR or cached images).
+- You can add a custom CSS transition, fallback, background color, and even a loading spinner.
 
 ---
 
-## 🎨 Styling
+## 🔁 Effects / Efectos Visuales
 
-The image starts blurred and transitions smoothly once it’s loaded. You can override or enhance this with your own styles:
+| Effect   | Description                           |
+| -------- | ------------------------------------- |
+| `blur`   | Apply blur and remove it after load   |
+| `fade`   | Fade in the image                     |
+| `scale`  | Slight zoom effect                    |
+| `custom` | Use your own CSS (add class to image) |
+
+---
+
+## 🌐 SSR Compatible / Compatible con SSR
+
+ImageLazy is safe to use in SSR environments (like Next.js). It checks for `window` and disables IntersectionObserver logic when rendering on the server.
+
+ImageLazy es seguro para entornos con renderizado del lado del servidor como Next.js. Detecta si `window` está disponible antes de usar IntersectionObserver.
+
+---
+
+## 🖼 Spinner / Carga Personalizada
+
+You can use `loadingComponent` to display a spinner while the image loads:
+
+```tsx
+<ImageLazy
+  src="/img/pic.webp"
+  alt="Custom Spinner"
+  loadingComponent={<div className="my-spinner" />}
+/>
+```
 
 ```css
-.custom-class {
-  filter: blur(20px);
-  transition: filter 0.9s ease;
+.my-spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid #ccc;
+  border-top-color: #000;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
 }
-
-.custom-class.loaded {
-  filter: none;
+@keyframes spin {
+  to { transform: rotate(360deg); }
 }
 ```
 
-You may also override the `style` prop directly if preferred.
+---
+
+## 📊 Comparison with react-lazy-load-image-component / Comparación con react-lazy-load-image-component
+
+| Feature / Característica                      | `ImageLazy` ✅                      | `react-lazy-load-image-component` ❌              |
+|----------------------------------------------|------------------------------------|--------------------------------------------------|
+| Lightweight & no external dependencies       | ✅ Yes / Sí                         | ❌ No (más pesado y con múltiples componentes)   |
+| SSR Friendly (Next.js compatible)            | ✅ Yes / Sí                         | ✅ Yes / Sí                                      |
+| Custom transitions via CSS (`custom`)        | ✅ Yes / Sí                         | ❌ No                                            |
+| Native spinner support (`loadingComponent`)  | ✅ Yes / Sí                         | ❌ No (solo con workarounds)                     |
+| Fallback support (`fallbackSrc`)             | ✅ Yes / Sí                         | ✅ Yes / Sí                                      |
+| Responsive images (`srcSet` and `sizes`)     | ✅ Yes / Sí                         | ✅ Yes / Sí                                      |
+| Load other elements lazily                   | ❌ Images only / Solo imágenes      | ✅ Yes (via `LazyLoadComponent`)                 |
+| Built-in effects                             | ✅ `blur`, `fade`, `scale`, custom  | ✅ `blur`, `opacity`, `bw`                        |
+| Transition customization                     | ✅ Total freedom with CSS           | ❌ Limited                                       |
 
 ---
 
-## 📄 License
+## 📄 License / Licencia
 
 [ISC License](./LICENSE)
 
 ---
 
-## 🤝 Contributing
+## 👤 Author / Autor
 
-Contributions are welcome!  
-Feel free to [open an issue](https://github.com/perch33/react-lazy-img-observer/issues) or submit a pull request.
-
----
-
-## 👤 Author
-
-**Percy Chuzon**  
-📧 contacto@percychuzon.com  
+**Percy Chuzon**\
+📧 [contacto@percychuzon.com](mailto\:contacto@percychuzon.com)\
 🌐 [https://percychuzon.com](https://percychuzon.com)
 
 ---
 
-## 🙏 Acknowledgments
+## 💡 Tip
 
-Thanks to the React community and the MDN docs for inspiration and guidance.
+If you want more control, just set `transitionType="custom"` and style the image with CSS. It’s that simple.
+
+Si deseas más control, usa `transitionType="custom"` y aplica tus estilos con CSS. Así de simple.
+
+---
+
+Happy loading! 🎉 / ¡Carga feliz! 🎉
+
